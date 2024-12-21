@@ -40,7 +40,10 @@ const link = generateLink({
     {
       slot: 3,
       stickerId: 6025, // Sticker | 00 Nation | Rio 2022
-      wear: 0,
+      wear: 0.1,
+      offsetX: -0.15,
+      offsetY: 0.05,
+      rotation: 45.0,
     },
   ],
 });
@@ -57,10 +60,7 @@ const hex = generateHex({
     {
       slot: 3,
       stickerId: 2,
-      wear: 0.1,
-      offsetX: -0.15,
-      offsetY: 0.05,
-      rotation: 45.0,
+      wear: 0,
     },
   ],
 });
