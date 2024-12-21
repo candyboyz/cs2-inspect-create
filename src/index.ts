@@ -4,6 +4,8 @@ import {
 } from "./econ";
 import CRC32 from "crc-32";
 import { Buffer } from "buffer";
+// Small update to make offset and rotation work with stickers.
+// Updated by 17mafo
 
 export enum Rarity {
   STOCK = 0,
