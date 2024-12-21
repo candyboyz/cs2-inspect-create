@@ -36,11 +36,18 @@ const floatToBytes = (floatValue: number): number => {
  */
 const generateHex = ({
   paintwear = 0.001,
+  stickers = [],
   ...props
 }: CEconItemPreviewDataBlock): string => {
   const econ: CEconItemPreviewDataBlock = {
     ...props,
     paintwear: floatToBytes(paintwear),
+    stickers: stickers.map((sticker) => ({
+      ...sticker,
+      offsetX: sticker.offsetX ?? 0,
+      offsetY: sticker.offsetY ?? 0,
+      rotations: sticker.rotation ?? 0,
+    })),
   };
 
   let payload = CEconItemPreviewDataBlock.toBinary(econ);
