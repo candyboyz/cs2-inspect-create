@@ -28,10 +28,7 @@ import {
   generateLink,
   generateGen,
   Rarity,
-  itemIds,
-  skinIds,
-  stickerIds,
-} from "cs2-inspect-create"; // or import cs2inspect from "cs2-inspect-create";
+} from 'cs2-inspect-create'; // or import cs2inspect from "cs2-inspect-create";
 
 const link = generateLink({
   defindex: 7,
@@ -42,7 +39,7 @@ const link = generateLink({
   stickers: [
     {
       slot: 3,
-      stickerId: stickerIds["00 Nation | Rio 2022"], // 6025
+      stickerId: 6025, // Sticker | 00 Nation | Rio 2022
       wear: 0,
     },
   ],
@@ -60,7 +57,10 @@ const hex = generateHex({
     {
       slot: 3,
       stickerId: 2,
-      wear: 0,
+      wear: 0.1,
+      offsetX: -0.15,
+      offsetY: 0.05,
+      rotation: 45.0,
     },
   ],
 });
