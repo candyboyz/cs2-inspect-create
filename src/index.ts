@@ -4,6 +4,8 @@ import {
 } from "./econ";
 import CRC32 from "crc-32";
 import { Buffer } from "buffer";
+// Small update to make offset and rotation work with stickers.
+// Updated by 17mafo
 
 export enum Rarity {
   STOCK = 0,
@@ -36,11 +38,18 @@ const floatToBytes = (floatValue: number): number => {
  */
 const generateHex = ({
   paintwear = 0.001,
+  stickers = [],
   ...props
 }: CEconItemPreviewDataBlock): string => {
   const econ: CEconItemPreviewDataBlock = {
     ...props,
     paintwear: floatToBytes(paintwear),
+    stickers: stickers.map((sticker) => ({
+      ...sticker,
+      offsetX: sticker.offsetX ?? 0,
+      offsetY: sticker.offsetY ?? 0,
+      rotations: sticker.rotation ?? 0,
+    })),
   };
 
   let payload = CEconItemPreviewDataBlock.toBinary(econ);
