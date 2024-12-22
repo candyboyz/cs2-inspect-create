@@ -76,36 +76,44 @@ const generateHex = ({
  * @args {@link CEconItemPreviewDataBlock}
  * @returns {string} "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%2000180720DA03280638FBEE88F90340B2026213080310021D00000000250000803F2D00000000503D5A64"
  */
-const generateLink = (props: CEconItemPreviewDataBlock) => {
+const generateLink = (props: CEconItemPreviewDataBlock): string => {
   const hex = generateHex(props);
 
   return `${previewLink}${hex}`;
 };
 
 /**
- * Returns the inspect link.
- *
+ * Returns the gen.
  *
  * @args {@link CEconItemPreviewDataBlock}
  * @returns {string} "!gen 7 474 306 0.6336590647697449 0 0 0 0 0 0 2 0 0 0"
  */
-const generateGen = (props: CEconItemPreviewDataBlock) => {
-  const stickers: CEconItemPreviewDataBlock_Sticker[] = [
-    { slot: 0, stickerId: 0, wear: 0 },
-    { slot: 1, stickerId: 0, wear: 0 },
-    { slot: 2, stickerId: 0, wear: 0 },
-    { slot: 3, stickerId: 0, wear: 0 },
-    { slot: 4, stickerId: 0, wear: 0 },
-  ];
+const generateGen = (props: CEconItemPreviewDataBlock): string => {
+  const MAX_STICKERS = 5;
+
+  const stickers: CEconItemPreviewDataBlock_Sticker[] = Array.from(
+    { length: MAX_STICKERS },
+    (_, index) => ({
+      slot: index,
+      stickerId: 0,
+      wear: 0.0,
+      offsetX: 0,
+      offsetY: 0,
+      rotation: 0,
+      tintId: 0,
+    }),
+  );
+
   let str = `!gen ${props.defindex} ${props.paintindex} ${props.paintseed} ${props.paintwear}`;
 
   if (!props.stickers) return str;
-  console.log(props.stickers);
-  props.stickers.forEach((val) => {
-    stickers[val.slot as number].stickerId = val.stickerId;
 
-    if (val.wear) {
-      stickers[val.slot as number].wear = val.wear;
+  props.stickers.forEach((val) => {
+    if (val.slot !== undefined && val.slot >= 0 && val.slot < MAX_STICKERS) {
+      stickers[val.slot].stickerId = val.stickerId;
+      if (val.wear !== undefined) {
+        stickers[val.slot].wear = val.wear;
+      }
     }
   });
 
